@@ -152,7 +152,7 @@
                 </a>
 
 
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('financials.create') }}">
                     <i class=" fa-sm fa-fw mr-2 "></i>
                     Add Transaction
                 </a>

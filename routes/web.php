@@ -7,6 +7,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustTypeController;
 use App\Http\Controllers\materialController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\FinancialController;
+
 use App\Models\Customer;
 
 /*
@@ -56,6 +58,30 @@ Route::resource('Customer', CustomerController::class);
 Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('delete');
 Route::get('CustomerFinancial', [CustomerController::class, 'customerFinancial'])->name('Customer.financial');
 Route::get('CustomerThing', [CustomerController::class, 'customerThing'])->name('Customer.thing');
+
+//these are Financial routes
+Route::get('financial/{customer_id}', [FinancialController::class, 'singleCreate'])->name('financial.singleCreate');
+// Route::get('financial/{customer_id}', function ($customer_id) {
+
+
+//     $customer = Customer::findOrFail($customer_id);
+//     return view('frontend.financial.singleCreate', compact('customer'));
+// });
+Route::resource('financials', FinancialController::class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //these are the Transaction route
 Route::resource('Transaction', TransactionController::class);

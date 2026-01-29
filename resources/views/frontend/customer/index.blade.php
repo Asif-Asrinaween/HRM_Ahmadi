@@ -4,7 +4,8 @@
 <div class="row">
     <div class="col-md-4 mx-auto">
         <h1 class="float-left">Customer List:</h1>
-        <a href="{{ route('Customer.create') }}" class="btn btn-primary mb-1 float-right">New Customer</a>
+        <a href="{{ route('financials.create') }}" class="btn btn-success mb-0 float-left">New Record</a>
+        <a href="{{ route('Customer.create') }}" class="btn btn-primary mb-0 float-right">New Customer</a>
         <table class="table table-bordered px-0 ">
             <thead>
                 <tr>

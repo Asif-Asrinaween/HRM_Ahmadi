@@ -27,6 +27,7 @@ class CustomerController extends Controller
     // display  list of customers in financial tab
     public function customerFinancial()
     {
+        $customers = Customer::all();
         return view('frontend.financial.customerList')
             ->with('customers', Customer::all());
     }

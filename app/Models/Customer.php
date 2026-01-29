@@ -12,4 +12,14 @@ class Customer extends Model
     use SoftDeletes;
     protected $fillable = ['Name','Phone','Add','DateOfJoin','DateOfSeparate', 'NID','NidPhoto','Level', 'CustRole'];
   
+
+    public function things()
+    {
+        // return $this->hasMany(Thing::class);
+    }
+
+    public function financials()
+    {
+        return $this->hasMany(Financial::class);
+    }
 }
