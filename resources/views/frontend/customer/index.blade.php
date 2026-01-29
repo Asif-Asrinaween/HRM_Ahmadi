@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Level</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                 <tr>
                     <td>{{ $customer->id }}</td>
                     <td>{{ $customer->Name }}</td>
+                    <td>{{ $customer->level_text }}</td>
 
                     <td>
                         <a href="{{ route('Customer.show',['Customer'=>$customer->id]) }}" class="btn btn-primary">Detail</a>

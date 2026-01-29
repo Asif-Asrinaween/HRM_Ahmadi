@@ -10,7 +10,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Customer ID</th>
+                        <th>Customer Name</th>
                         <th>Detail</th>
                         <th>Currency</th>
                         <th>Credit</th>
@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach ($customerFinancials as $customerFinancial)
                         <tr>
-                            <td>{{ $customerFinancial->customer_id }}</td>
+                            <td>{{ $customerFinancial->customer->Name }}</td>
                             <td>{{ $customerFinancial->detail }}</td>
                             <td>{{ $customerFinancial->currency }}</td>
                             <td>{{ $customerFinancial->credit }}</td>

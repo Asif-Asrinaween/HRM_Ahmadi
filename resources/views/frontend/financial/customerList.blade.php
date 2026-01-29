@@ -18,17 +18,13 @@
                         <tr>
                             <td>{{ $customer->id }}</td>
                             <td>
-                                <a href="{{  route('financials.show', $customer->id)  }}"> {{ $customer->Name }}</a>
-                               
+                                <a href="{{ route('financials.show', $customer->id) }}">
+                                    {{ $customer->Name }}</a>
+
                             </td>
-                            <td>
-                                @if ($customer->Level == 0)
-                                    under
-                                @elseif ($customer->Level == 1)
-                                    upper
-                                @endif
-                            </td>
-                            
+                            <td>{{ $customer->level_text }}</td>
+
+
                             {{--
                     <td>
                         <a href="{{ route('delete',['id'=>$item->id]) }}"><i class="fa fa-trash"></i></a>
@@ -42,4 +38,3 @@
         </div>
     </div>
 @endsection
-

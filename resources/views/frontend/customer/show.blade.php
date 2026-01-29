@@ -29,7 +29,7 @@
                 <td>{{ $customer->DateOfSeparate }}</td>
                 <td>{{ $customer->NID }}</td>
                 <td>{{ $customer->NidPhoto }}</td>
-                <td>{{ $customer->Level }}</td>
+                <td>{{ $customer->level_text }}</td>
                 <td>{{ $customer->CustRole }}</td>
                 <td>
                     <form class="float-left" action="{{ route('delete',['id' => $customer->id]) }}" method="POST"

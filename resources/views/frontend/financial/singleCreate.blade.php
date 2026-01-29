@@ -1,10 +1,18 @@
 @extends('frontend.layout.master')
 @section('content')
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
 
-                <h4 class="mb-3">Add Financial Record</h4>
+        <div class="row">
+
+            <div class="col-md-8 mx-auto">
+                <div class="d-flex justify-content-between float-right mb-3">
+                    <a href="{{ route('financials.show', [($customer_id = $customer->id)]) }}"
+                        class="btn btn-secondary">
+                        Back
+                    </a>
+                </div>
+                <h4 class=" mb-3">Add Financial Record</h4>
+
 
                 <form action="{{ route('financials.store') }}" method="POST">
                     @csrf
@@ -52,20 +60,16 @@
                     </div>
 
                     {{-- Buttons --}}
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('financials.show', [($customer_id = $customer->id)]) }}"
-                            class="btn btn-secondary">
-                            Back
-                        </a>
 
-                        <button type="submit" class="btn btn-primary">
-                            Save Financial Record
-                        </button>
-                    </div>
 
-                </form>
-
+                    <button type="submit" class="btn btn-primary">
+                        Save
+                    </button>
             </div>
+
+            </form>
+
         </div>
+    </div>
     </div>
 @endsection

@@ -11,6 +11,15 @@ class Customer extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['Name','Phone','Add','DateOfJoin','DateOfSeparate', 'NID','NidPhoto','Level', 'CustRole'];
+//Accessor for changing Level value to Text
+    public function getLevelTextAttribute()
+    {
+        return match ($this->Level) {
+            0 => 'under',
+            1 => 'upper',
+            default => 'unknown',
+        };
+    }
   
 
     public function things()
