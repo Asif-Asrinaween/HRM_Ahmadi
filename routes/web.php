@@ -48,12 +48,6 @@ require __DIR__ . '/auth.php';
 
 
 
-// these are the CustType routes routes
-Route::resource('CustType', CustTypeController::class);
-route::get('trash', [CustTypeController::class, 'trash'])->name('CustType.trash');
-route::delete('force-delete/{id}', [CustTypeController::class, 'delete'])->name('CustType.force-delete');
-route::get('restore/{id}', [CustTypeController::class, 'restore'])->name('CustType.restore');
-
 //these are the Customer routes
 Route::resource('Customer', CustomerController::class);
 Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('delete');
@@ -66,27 +60,6 @@ Route::resource('financials', FinancialController::class);
 
 //these are Thing routes
 Route::resource('things', ThingController::class);
-
-
-
-
-
-
-
-
-
-
-
-
-//these are the Transaction route
-Route::resource('Transaction', TransactionController::class);
-Route::get('created/{CustId}', [TransactionController::class, 'created'])->name('Transcreated');
-
-//these are the Material route
-Route::resource('Material', materialController::class);
-Route::delete('delete/{id}', [materialController::class, 'delete'])->name('delete');
-
-
 
 // route::get('test',function(){
 // return Customer::find(16)->CustType->id;

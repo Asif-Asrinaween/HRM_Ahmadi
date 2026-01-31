@@ -148,38 +148,6 @@
                 </a>
             </li>
 
-
-
-
-            <!-- Nav Item - Materials -->
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" role="button"
-                    data-toggle="dropdown">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span class="nav-link">Material</span>
-                    <div class="dropdown-menu dropdown-menu-left">
-
-
-                        <a class="dropdown-item" href="{{ route('Material.create') }}">
-                            <i class=" fa-sm fa-fw mr-2 "></i>
-                            Add Material
-                        </a>
-
-                        <a class="dropdown-item" href="{{ route('Material.index') }}">
-                            <i class=" fa-sm fa-fw mr-2 "></i>
-                            Material List
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class=" fa-sm fa-fw mr-2 "></i>
-                            Material Detail
-                        </a>
-
-                    </div>
-                </a>
-            </li>
-
-
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
