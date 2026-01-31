@@ -80,31 +80,12 @@
             </li>
 
 
-            <!-- Nav Item - Cust_Type -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('CustType.index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Cust_Type</span></a>
-            </li>
-
-
-
             <!-- Nav Item - Customer -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('Customer.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Customer</span></a>
             </li>
-
-
-            <!-- Nav Item - Customer -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('Transaction.index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Transaction</span></a>
-            </li>
-
-
 
 
             <!-- Nav Item - Thing -->
@@ -135,9 +116,6 @@
                     </div>
                 </a>
             </li>
-
-
-
 
 
 

@@ -19,7 +19,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Customer Level</th>
+                                <th>Level</th>
                             </tr>
                         </thead>
 

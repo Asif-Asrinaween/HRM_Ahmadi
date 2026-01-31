@@ -19,7 +19,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Customer Level</th>
+                                <th>Level</th>
                             </tr>
                         </thead>
 
@@ -32,7 +32,19 @@
                                             {{ $customer->Name }}
                                         </a>
                                     </td>
-                                    <td>{{ $customer->level_text }}</td>
+                                    <td>
+                                        @if ($customer->level_text === 'upper')
+                                            <span class="badge bg-primary text-dark bold px-3 py-2">
+                                                Upper
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning text-dark px-3 py-2">
+                                                Under
+                                            </span>
+                                        @endif
+                                    </td>
+
+
                                 </tr>
                             @endforeach
                         </tbody>
