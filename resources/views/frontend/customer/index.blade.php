@@ -1,49 +1,51 @@
 @extends('frontend.layout.master')
+
 @section('content')
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
 
-<div class="row">
-    <div class="col-md-4 mx-auto">
-        <h1 class="float-left">Customer List:</h1>
-        <a href="{{ route('financials.create') }}" class="btn btn-success mb-0 float-left">New Record</a>
-        <a href="{{ route('Customer.create') }}" class="btn btn-primary mb-0 float-right">New Customer</a>
-        <table class="table table-bordered px-0 ">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Level</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($customers as $customer)
-                <tr>
-                    <td>{{ $customer->id }}</td>
-                    <td>{{ $customer->Name }}</td>
-                    <td>{{ $customer->level_text }}</td>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Customer List</h4>
+                    <a href="{{ route('Customer.create') }}" class="btn btn-primary">
+                        Add Customer
+                    </a>
+                </div>
+                {{-- if no records found --}}
+                @if ($customers->isEmpty())
+                    <div class="alert alert-warning">
+                        No customers found.
+                    </div>
+                @else
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Level</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
 
-                    <td>
-                        <a href="{{ route('Customer.show',['Customer'=>$customer->id]) }}" class="btn btn-primary">Detail</a>
-                    </td>
-{{--
-                    <td>
-                        <a href="{{ route('delete',['id'=>$item->id]) }}"><i class="fa fa-trash"></i></a>
-                        <a href="{{ route('Admin.edit',['Admin'=>$item->id]) }}"><i class="fa fa-edit"></i></a>
-                    </td> --}}
-                </tr>
-                @endforeach
-            </tbody>
+                        <tbody>
+                            @foreach ($customers as $index => $customer)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $customer->Name }}</td>
+                                    <td>{{ $customer->level_text }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('Customer.show', ['Customer' => $customer->id]) }}"
+                                            class="btn btn-sm btn-primary">
+                                            Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
 
-        </table>
+            </div>
+        </div>
     </div>
-</div>
-
 @endsection
-
-
-@section('script')
-
-
-
-@endsection
-

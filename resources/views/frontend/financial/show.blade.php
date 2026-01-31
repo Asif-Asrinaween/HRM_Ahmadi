@@ -1,64 +1,71 @@
 @extends('frontend.layout.master')
+
 @section('content')
-    <div class="row">
-        <div class="col-md-11 mx-auto">
-            <h1 class="float-left">Financial History of this person</h1>
-            <a href="{{ route('financial.singleCreate', $customer_id) }}"
-                class="btn btn-primary mb-1 float-right">New Record</a>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
 
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Financial History</h4>
+                    <a href="{{ route('financial.singleCreate', $customer_id) }}" class="btn btn-primary">
+                        New Record
+                    </a>
+                </div>
+                {{-- if no records found --}}
+                @if ($customerFinancials->isEmpty())
+                    <div class="alert alert-warning">
+                        No financial records found for this customer.
+                    </div>
+                @else
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Detail</th>
+                                <th>Currency</th>
+                                <th>Credit</th>
+                                <th>Debit</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Customer Name</th>
-                        <th>Detail</th>
-                        <th>Currency</th>
-                        <th>Credit</th>
-                        <th>Debit</th>
-                        <th>Balance</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        {{-- <th>Action</th> --}}
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($customerFinancials as $customerFinancial)
-                        <tr>
-                            <td>{{ $customerFinancial->customer->Name }}</td>
-                            <td>{{ $customerFinancial->detail }}</td>
-                            <td>{{ $customerFinancial->currency }}</td>
-                            <td>{{ $customerFinancial->credit }}</td>
-                            <td>{{ $customerFinancial->debit }}</td>
-                            <td>{{ $customerFinancial->CalculatedBalance }}</td>
-                            <td>{{ $customerFinancial->CalculatedStatus }}</td>
-                            <td>{{ $customerFinancial->date }}</td>
+                        <tbody>
+                            @foreach ($customerFinancials as $index => $customerFinancial)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $customerFinancial->customer->Name }}</td>
+                                    <td>{{ $customerFinancial->detail }}</td>
+                                    <td>{{ $customerFinancial->currency }}</td>
+                                    <td>{{ number_format($customerFinancial->credit, 2) }}</td>
+                                    <td>{{ number_format($customerFinancial->debit, 2) }}</td>
+                                    <td>{{ number_format($customerFinancial->CalculatedBalance, 2) }}
+                                    </td>
+                                    <td>{{ $customerFinancial->CalculatedStatus }}</td>
+                                    <td>{{ $customerFinancial->date }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
 
-                            {{-- <td>
-                        <a href="{{ route('Transaction.show',['Transaction'=>$transaction->custId]) }}">Show more</a>
+                        {{-- Total row --}}
+                        <tfoot>
+                            <tr class="fw-bold">
+                                <td colspan="4">Total</td>
+                                <td>{{ number_format($customerFinancial->totalCredit, 2) }}</td>
+                                <td>{{ number_format($customerFinancial->totalDebit, 2) }}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
 
-                    </td> --}}
-                            {{--
-                    <td>
-                        <a href="{{ route('delete',['id'=>$item->id]) }}"><i class="fa fa-trash"></i></a>
-                        <a href="{{ route('Admin.edit',['Admin'=>$item->id]) }}"><i class="fa fa-edit"></i></a>
-                    </td> --}}
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tr>
-                    <td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ $customerFinancial->totalCredit }}</td>
-                    <td>{{ $customerFinancial->totalDebit }}</td>
-                </tr>
+                    </table>
+                @endif
 
-            </table>
-            {{-- Buttons --}}
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('Customer.financial') }}" class="btn btn-secondary">
+                <a href="{{ route('Customer.financial') }}" class="btn btn-secondary mt-3">
                     Back
                 </a>
+
             </div>
         </div>
     </div>

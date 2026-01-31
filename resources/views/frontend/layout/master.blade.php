@@ -14,32 +14,35 @@
 
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('frontend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('frontend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+        type="text/css">
     <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <script src="{{ asset('frontend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-    <script src="https://cdn.tiny.cloud/1/khu970cyp76e4ta3eo8yuja2opffb6m14yaet9djwu18bbvw/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
+    <script
+        src="https://cdn.tiny.cloud/1/khu970cyp76e4ta3eo8yuja2opffb6m14yaet9djwu18bbvw/tinymce/4/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- offline delete confirmation sweetalert2  or using sweetalert2 offline via npm--}}
+    {{-- offline delete confirmation sweetalert2  or using sweetalert2 offline via npm --}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link href="{{ mix('css/app.css') }}" >
+    <link href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.min.css') }}">
 
 
 
-<style>
-    svg{
-        width: 20px;
-    }
-</style>
+    <style>
+        svg {
+            width: 20px;
+        }
+    </style>
 
 
 
@@ -52,10 +55,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
                     {{-- <img src="{{ Storage::url(Auth::user()->profile->profile_pic)}}" alt="" width="50px" height="50px" style="border-radius: 40%"> --}}
 
@@ -99,36 +104,36 @@
                     <span>Transaction</span></a>
             </li>
 
-            
+
 
 
             <!-- Nav Item - Thing -->
             <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" role="button"
-            data-toggle="dropdown" >
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span class="nav-link">Things</span>
-            <div class="dropdown-menu dropdown-menu-left">
+                <a class="nav-link dropdown-toggle" href="#" role="button"
+                    data-toggle="dropdown">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span class="nav-link">Things</span>
+                    <div class="dropdown-menu dropdown-menu-left">
 
 
 
-            <a class="dropdown-item" href="{{ route('Customer.thing') }}">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Customer
+                        <a class="dropdown-item" href="{{ route('Customer.thing') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Customer
+                        </a>
+
+
+                        <a class="dropdown-item" href="{{ route('things.create') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Add Transaction
+                        </a>
+
+                        <a class="dropdown-item" href="#">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Transaction List
+                        </a>
+                    </div>
                 </a>
-
-
-                <a class="dropdown-item" href="#">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Add Transaction
-                </a>
-
-            <a class="dropdown-item" href="#">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Transaction List
-            </a>
-        </div>
-        </a>
             </li>
 
 
@@ -138,101 +143,67 @@
 
             <!-- Nav Item - financial -->
             <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" role="button"
-            data-toggle="dropdown" >
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span class="nav-link">Financial</span>
-            <div class="dropdown-menu dropdown-menu-left">
+                <a class="nav-link dropdown-toggle" href="#" role="button"
+                    data-toggle="dropdown">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span class="nav-link">Financial</span>
+                    <div class="dropdown-menu dropdown-menu-left">
 
 
 
-                 <a class="dropdown-item" href="{{ route('Customer.financial') }}">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Customer
+                        <a class="dropdown-item" href="{{ route('Customer.financial') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Customer
+                        </a>
+
+
+                        <a class="dropdown-item" href="{{ route('financials.create') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Add Transaction
+                        </a>
+
+                        <a class="dropdown-item" href="#">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Transaction List
+                        </a>
+                    </div>
                 </a>
-
-
-                <a class="dropdown-item" href="{{ route('financials.create') }}">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Add Transaction
-                </a>
-
-            <a class="dropdown-item" href="#">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Transaction List
-            </a>
-        </div>
-        </a>
             </li>
 
 
 
 
-                <!-- Nav Item - Materials -->
+            <!-- Nav Item - Materials -->
             <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" role="button"
-            data-toggle="dropdown" >
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span class="nav-link">Material</span>
-            <div class="dropdown-menu dropdown-menu-left">
+                <a class="nav-link dropdown-toggle" href="#" role="button"
+                    data-toggle="dropdown">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span class="nav-link">Material</span>
+                    <div class="dropdown-menu dropdown-menu-left">
 
 
-                <a class="dropdown-item" href="{{ route('Material.create') }}">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Add Material
+                        <a class="dropdown-item" href="{{ route('Material.create') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Add Material
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('Material.index') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Material List
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Material Detail
+                        </a>
+
+                    </div>
                 </a>
-
-            <a class="dropdown-item" href="{{ route('Material.index') }}">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Material List
-            </a>
-            <a class="dropdown-item" href="#">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Material Detail
-            </a>
-
-        </div>
-        </a>
             </li>
 
-
-
-            {{-- <!-- Nav Item - Materials -->
-            <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" role="button"
-            data-toggle="dropdown" >
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span class="nav-link">Materials</span>
-            <div class="dropdown-menu dropdown-menu-left">
-
-
-                <a class="dropdown-item" href="{{ route('Material.create') }}">
-                    <i class=" fa-sm fa-fw mr-2 "></i>
-                    Add Material
-                </a>
-
-            <a class="dropdown-item" href="{{ route('Material.index') }}">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Material List
-            </a>
-            <a class="dropdown-item" href="#">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Material Type
-            </a>
-            <a class="dropdown-item" href="#">
-                <i class=" fa-sm fa-fw mr-2 "></i>
-                Material Detail
-            </a>
-
-        </div>
-        </a>
-            </li> --}}
 
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-
 
 
             <!-- Sidebar Toggler (Sidebar) -->
@@ -250,21 +221,29 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <button id="sidebarToggleTop"
+                        class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <a href="{{ route('things.create') }}"
+                            class="btn btn-primary m-4 p-0">Add Thing</a>
+
+                        <a href="{{ route('financials.create') }}"
+                            class="btn btn-success m-4 p-0">Add Financial</a>
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#"
+                                id="searchDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
@@ -272,7 +251,8 @@
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
+                                        <input type="text"
+                                            class="form-control bg-light border-0 small"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
@@ -290,9 +270,11 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
 
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas
+                                    McGee</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{ asset('frontend/img/undraw_profile.svg') }}">
                             </a>
@@ -313,16 +295,17 @@
 
                                 <div class="dropdown-divider"></div>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
 
-                <a href="route('logout')"
-                        onclick="event.preventDefault();
-                        this.closest('form').submit();" class="dropdown-item">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    {{ __('Log Out') }}
-            </a>
-            </form>
+                                    <a href="route('logout')"
+                                        onclick="event.preventDefault();
+                        this.closest('form').submit();"
+                                        class="dropdown-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('Log Out') }}
+                                    </a>
+                                </form>
 
                             </div>
                         </li>
@@ -356,19 +339,22 @@
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <button class="close" type="button" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your
+                        current session.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" type="button"
+                            data-dismiss="modal">Cancel</button>
                         <a class="btn btn-primary" href="login.html">Logout</a>
                     </div>
                 </div>
@@ -385,10 +371,10 @@
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('frontend/js/sb-admin-2.min.js') }}"></script>
 
-                    {{-- tiny mce --}}
-                    <script>
-                var editor_config = {
-                path_absolute : "/",
+        {{-- tiny mce --}}
+        <script>
+            var editor_config = {
+                path_absolute: "/",
                 selector: "textarea.my-editor",
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -398,62 +384,65 @@
                 ],
                 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                 relative_urls: false,
-                file_browser_callback : function(field_name, url, type, win) {
-                    var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-                    var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+                file_browser_callback: function(field_name, url, type, win) {
+                    var x = window.innerWidth || document.documentElement.clientWidth || document
+                        .getElementsByTagName('body')[0].clientWidth;
+                    var y = window.innerHeight || document.documentElement.clientHeight || document
+                        .getElementsByTagName('body')[0].clientHeight;
 
-                    var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+                    var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' +
+                        field_name;
                     if (type == 'image') {
-                    cmsURL = cmsURL + "&type=Images";
+                        cmsURL = cmsURL + "&type=Images";
                     } else {
-                    cmsURL = cmsURL + "&type=Files";
+                        cmsURL = cmsURL + "&type=Files";
                     }
 
                     tinyMCE.activeEditor.windowManager.open({
-                    file : cmsURL,
-                    title : 'Filemanager',
-                    width : x * 0.8,
-                    height : y * 0.8,
-                    resizable : "yes",
-                    close_previous : "no"
+                        file: cmsURL,
+                        title: 'Filemanager',
+                        width: x * 0.8,
+                        height: y * 0.8,
+                        resizable: "yes",
+                        close_previous: "no"
                     });
                 }
-                };
+            };
 
-                tinymce.init(editor_config);
-                </script>
+            tinymce.init(editor_config);
+        </script>
 
-                {{-- Message toast for showing an action is done successfully from sweetalert2 --}}
-                <script>
-                    const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
+        {{-- Message toast for showing an action is done successfully from sweetalert2 --}}
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
 
-                    @if (Session::has('success')){
-                        Toast.fire({
-                    icon: "success",
-                    title: "{{ Session::get('success') }}"
+            @if (Session::has('success'))
+                {
+                    Toast.fire({
+                        icon: "success",
+                        title: "{{ Session::get('success') }}"
                     });
 
                 }
-                    @endif
+            @endif
+        </script>
 
-                </script>
-
-                {{-- offline deltete sweetalert --}}
-                <script src="{{ mix('js/app.js') }}"></script>
-@yield('script')
-
+        {{-- offline deltete sweetalert --}}
+        <script src="{{ mix('js/app.js') }}"></script>
+        @yield('script')
 
 
-    </body>
 
-    </html>
+</body>
+
+</html>

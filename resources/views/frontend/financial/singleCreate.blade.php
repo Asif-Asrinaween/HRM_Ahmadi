@@ -1,9 +1,7 @@
 @extends('frontend.layout.master')
 @section('content')
     <div class="container mt-4">
-
         <div class="row">
-
             <div class="col-md-8 mx-auto">
                 <div class="d-flex justify-content-between float-right mb-3">
                     <a href="{{ route('financials.show', [($customer_id = $customer->id)]) }}"

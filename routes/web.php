@@ -8,6 +8,7 @@ use App\Http\Controllers\CustTypeController;
 use App\Http\Controllers\materialController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FinancialController;
+use App\Http\Controllers\ThingController;
 
 use App\Models\Customer;
 
@@ -61,16 +62,10 @@ Route::get('CustomerThing', [CustomerController::class, 'customerThing'])->name(
 
 //these are Financial routes
 Route::get('financial/{customer_id}', [FinancialController::class, 'singleCreate'])->name('financial.singleCreate');
-// Route::get('financial/{customer_id}', function ($customer_id) {
-
-
-//     $customer = Customer::findOrFail($customer_id);
-//     return view('frontend.financial.singleCreate', compact('customer'));
-// });
 Route::resource('financials', FinancialController::class);
 
-
-
+//these are Thing routes
+Route::resource('things', ThingController::class);
 
 
 
