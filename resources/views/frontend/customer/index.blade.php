@@ -6,10 +6,15 @@
             <div class="col-md-8 mx-auto">
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Customer List</h4>
-                    <a href="{{ route('Customer.create') }}" class="btn btn-primary">
-                        Add Customer
-                    </a>
+                    <h4>Customers List</h4>
+                    <div class="d-flex gap-1">
+                        <a href="{{ route('Customer.trashed') }}" class="btn btn-warning">
+                            Recycle Bin
+                        </a>
+                        <a href="{{ route('Customer.create') }}" class="btn btn-primary">
+                            Add New
+                        </a>
+                    </div>
                 </div>
                 {{-- if no records found --}}
                 @if ($customers->isEmpty())
@@ -32,7 +37,20 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $customer->Name }}</td>
-                                    <td>{{ $customer->level_text }}</td>
+
+                                    <td>
+                                        @if ($customer->level_text === 'upper')
+                                            <span class="badge px-3 py-2"
+                                                style="background-color:#ffd9b3;font-weight:bold;">
+                                                upper
+                                            </span>
+                                        @else
+                                            <span class="badge px-3 py-2"
+                                                style="background-color:#adebeb;font-weight:bold;">
+                                                under
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <a href="{{ route('Customer.show', ['Customer' => $customer->id]) }}"
                                             class="btn btn-sm btn-primary">

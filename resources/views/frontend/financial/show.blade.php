@@ -7,11 +7,12 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Financial History</h4>
+
                     <a href="{{ route('financial.singleCreate', $customer_id) }}" class="btn btn-primary">
                         New Record
                     </a>
                 </div>
-                {{-- if no records found --}}
+
                 @if ($customerFinancials->isEmpty())
                     <div class="alert alert-warning">
                         No financial records found for this customer.
@@ -36,29 +37,60 @@
                             @foreach ($customerFinancials as $index => $customerFinancial)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
+
                                     <td>{{ $customerFinancial->customer->Name }}</td>
-                                    <td>{{ $customerFinancial->detail }}</td>
+
+                                    <td>{{ $customerFinancial->detail ?? '-' }}</td>
+
                                     <td>{{ $customerFinancial->currency }}</td>
-                                    <td>{{ number_format($customerFinancial->credit, 2) }}</td>
-                                    <td>{{ number_format($customerFinancial->debit, 2) }}</td>
-                                    <td>{{ number_format($customerFinancial->CalculatedBalance, 2) }}
+
+                                    <td class="text-success fw-bold">
+                                        {{ number_format($customerFinancial->credit, 2) }}
                                     </td>
-                                    <td>{{ $customerFinancial->CalculatedStatus }}</td>
+
+                                    <td class="text-danger fw-bold">
+                                        {{ number_format($customerFinancial->debit, 2) }}
+                                    </td>
+
+                                    <td class="fw-bold">
+                                        {{ number_format($customerFinancial->CalculatedBalance, 2) }}
+                                    </td>
+
+                                    <td>
+                                        @if ($loop->last)
+                                            @if ($customerFinancial->CalculatedStatus === 'طلب')
+                                                <span class="badge px-3 py-2"
+                                                    style="background-color:#ccffcc;font-weight:bold;">
+                                                    طلب
+                                                </span>
+                                            @elseif ($customerFinancial->CalculatedStatus === 'باقی')
+                                                <span class="badge px-3 py-2"
+                                                    style="background-color:#ffb380;font-weight:bold;">
+                                                    باقی
+                                                </span>
+                                            @else
+                                                <span class="badge px-3 py-2"
+                                                    style="background-color:#ffd9b3;font-weight:bold;">
+                                                    متعادل
+                                                </span>
+                                            @endif
+                                        @endif
+                                    </td>
+
                                     <td>{{ $customerFinancial->date }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
 
-                        {{-- Total row --}}
+                        {{-- TOTAL ROW --}}
                         <tfoot>
-                            <tr class="fw-bold">
+                            <tr class="table-secondary fw-bold">
                                 <td colspan="4">Total</td>
-                                <td>{{ number_format($customerFinancial->totalCredit, 2) }}</td>
-                                <td>{{ number_format($customerFinancial->totalDebit, 2) }}</td>
+                                <td>{{ number_format($totalCredit, 2) }}</td>
+                                <td>{{ number_format($totalDebit, 2) }}</td>
                                 <td colspan="3"></td>
                             </tr>
                         </tfoot>
-
                     </table>
                 @endif
 

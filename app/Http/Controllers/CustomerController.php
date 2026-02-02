@@ -17,13 +17,22 @@ class CustomerController extends Controller
             ->with('customers', Customer::all());
     }
 
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('frontend.customer.create');
+    }
+
     // display  list of customers in Thing tab
     public function customerThing()
     {
         return view('frontend.thing.customerList')
             ->with('customers', Customer::all());
     }
-    
+
     // display  list of customers in financial tab
     public function customerFinancial()
     {
@@ -33,20 +42,11 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('frontend.customer.create')
-            ->with('custTypes', CustType::all());
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        Customer::create(['Name' => $request->Name, 'Phone' => $request->Phone, 'Add' => $request->Add,  'DateOfJoin' => $request->DateOfJoin,'DateOfSeparate' => $request->DateOfSeparate,'NID' => $request->NID, 'NidPhoto' => $request->NidPhoto, 'Level'=> $request->Level, 'CustRole' => $request->CustRole,]);
+        Customer::create(['Name' => $request->Name, 'Phone' => $request->Phone, 'Add' => $request->Add,  'DateOfJoin' => $request->DateOfJoin, 'DateOfSeparate' => $request->DateOfSeparate, 'NID' => $request->NID, 'NidPhoto' => $request->NidPhoto, 'Level' => $request->Level, 'CustRole' => $request->CustRole,]);
         return redirect()->route('Customer.index');
     }
 
@@ -57,7 +57,6 @@ class CustomerController extends Controller
     {
         return view('frontend.customer.show')
             ->with('customer', Customer::findOrFail($id));
-        // return $customer = Customer::findOrFail($id);
     }
 
     /**
@@ -66,8 +65,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         return view('frontend.customer.edit')
-            ->with('customer', Customer::findOrFail($id))
-            ->with('custTypes', CustType::all());
+            ->with('customer', Customer::findOrFail($id));
     }
 
     /**
@@ -75,25 +73,52 @@ class CustomerController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        Customer::where('id', $id)->update(['Name' => $request->Name, 'FatherName' => $request->FatherName, 'Phone' => $request->Phone, 'Email' => $request->Email, 'NID' => $request->NID, 'Add' => $request->Add, 'CustType' => $request->CustType,]);
+        Customer::where('id', $id)->update(['Name' => $request->Name, 'Phone' => $request->Phone, 'Add' => $request->Add,  'DateOfJoin' => $request->DateOfJoin, 'DateOfSeparate' => $request->DateOfSeparate, 'NID' => $request->NID, 'NidPhoto' => $request->NidPhoto, 'Level' => $request->Level, 'CustRole' => $request->CustRole,]);
         return redirect()->route('Customer.show', ['Customer' => $id]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * destroy the specified resource just from view.
      */
-    // public function destroy(Customer $customer)
-    // {return $customer;
-    //     $customer->delete();
-    //     return redirect()->route('Customer.index');
-    // }
-
-    public function delete($customer)
+    public function destroy(Customer $Customer)
     {
-        // return $customer;
-        $customer = Customer::findOrFail($customer);
+
+        $Customer->delete();
+        return redirect()->route('Customer.index');
+    }
+    // display list of soft deleted or trashed or destroyed customers
+    public function trashed()
+    {
+        $customers = Customer::onlyTrashed()->get();
+
+        return view('frontend.customer.trashed', compact('customers'));
+    }
+    // restore soft deleted customer
+    public function restore($id)
+    {
+        $customer = Customer::withTrashed()->findOrFail($id);
+        $customer->restore();
+
+        return redirect()->route('Customer.index')
+            ->with('success', 'Customer restored successfully.');
+    }
+
+    // permanently delete customer from database
+
+    public function delete($id)
+    {
+        // Find the customer including trashed records
+        $customer = Customer::withTrashed()->findOrFail($id);
+
+        // Ensure the customer is trashed before permanently deleting
+        if (! $customer->trashed()) {
+            return redirect()->back()
+                ->with('error', 'Customer must be soft-deleted before permanently deleting.');
+        }
 
         $customer->forceDelete();
-        return redirect()->route('Customer.index');
+        
+        return redirect()->back()
+            ->with('success', 'Customer permanently deleted.');
     }
 }

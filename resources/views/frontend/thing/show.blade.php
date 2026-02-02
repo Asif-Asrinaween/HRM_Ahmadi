@@ -33,27 +33,23 @@
 
                         <tbody>
                             @foreach ($things as $index => $thing)
-                                <tr>
+                                {{-- colorize the row based on type --}}
+                                <tr
+                                    @if ($thing->type == 1) style="background-color: #fff2e6;" 
+                                    @elseif ($thing->type == 0)
+                                        style="background-color: #e6ffe6;" @endif>
                                     <td>{{ $index + 1 }}</td>
-
                                     <td>{{ $thing->customer->Name }}</td>
-
                                     <td>
                                         {{ $thing->type == 1 ? 'Debit' : 'Credit' }}
                                     </td>
-
                                     <td>{{ $thing->model }}</td>
-
                                     <td>{{ $thing->amount }}</td>
-
                                     <td>{{ number_format($thing->unit_price, 2) }}</td>
-
                                     <td>
                                         {{ number_format($thing->sum, 2) }}
                                     </td>
-
                                     <td>{{ $thing->detail ?? '-' }}</td>
-
                                     <td>{{ $thing->date }}</td>
                                 </tr>
                             @endforeach

@@ -50,7 +50,11 @@ require __DIR__ . '/auth.php';
 
 //these are the Customer routes
 Route::resource('Customer', CustomerController::class);
-Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('delete');
+Route::get('/customers/trashed', [CustomerController::class, 'trashed'])
+    ->name('Customer.trashed');
+    Route::post('/customers/{id}/restore', [CustomerController::class, 'restore'])
+    ->name('Customer.restore');
+Route::delete('/customers/{id}/delete', [CustomerController::class, 'delete'])->name('Cutomer.delete');
 Route::get('CustomerFinancial', [CustomerController::class, 'customerFinancial'])->name('Customer.financial');
 Route::get('CustomerThing', [CustomerController::class, 'customerThing'])->name('Customer.thing');
 

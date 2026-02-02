@@ -34,12 +34,14 @@
                                     </td>
                                     <td>
                                         @if ($customer->level_text === 'upper')
-                                            <span class="badge bg-primary text-dark bold px-3 py-2">
-                                                Upper
+                                           <span class="badge px-3 py-2"
+                                                style="background-color:#ffd9b3;font-weight:bold;">
+                                                upper
                                             </span>
                                         @else
-                                            <span class="badge bg-warning text-dark px-3 py-2">
-                                                Under
+                                            <span class="badge px-3 py-2"
+                                                style="background-color:#adebeb;font-weight:bold;">
+                                                under
                                             </span>
                                         @endif
                                     </td>

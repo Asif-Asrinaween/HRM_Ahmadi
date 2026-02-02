@@ -75,40 +75,46 @@ class FinancialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($customer_id)
-    {
+    public function show(string $customer_id)
+{
+    $customerFinancials = Financial::where('customer_id', $customer_id)->get();
 
-        $customerFinancials = Financial::where('customer_id', $customer_id)->get();
+    $totalCredit = 0;
+    $totalDebit  = 0;
+    $balance     = 0;
+    $finalStatus = 'متعادل';
 
-        // Add balance calculation
-        $balance = 0;
-        $totalCredit = 0;
-        $totalDebit = 0;
-        foreach ($customerFinancials as $customerFinancial) {
-            $status = "تصفیه";
-            $balance = ($balance + $customerFinancial->credit) - ($customerFinancial->debit);
-            $customerFinancial->CalculatedBalance = $balance;
-            //calculating total of credit and debit
-            $totalCredit = $totalCredit + $customerFinancial->credit;
-            $totalDebit = $totalDebit + $customerFinancial->debit;
+    foreach ($customerFinancials as $customerFinancial) {
 
-            //calculating the status
-            if ($balance > 0) {
-                $status = "طلب";
-                $customerFinancial->CalculatedStatus = $status;
-            } elseif ($balance < 0) {
-                $status = "باقی";
-                $customerFinancial->CalculatedStatus = $status;
-            } else {
-                $customerFinancial->CalculatedStatus = $status;
-            }
-        }
-        //send total credit and debit
-        $customerFinancial->totalCredit = $totalCredit;
-        $customerFinancial->totalDebit = $totalDebit;
+        $balance += $customerFinancial->credit - $customerFinancial->debit;
 
-        return view('frontend.financial.show', compact('customerFinancials','customer_id'));
+        $totalCredit += $customerFinancial->credit;
+        $totalDebit  += $customerFinancial->debit;
+
+        // running balance per row
+        $customerFinancial->CalculatedBalance = $balance;
     }
+
+    // ✅ calculate status ONCE (final balance)
+    if ($balance > 0) {
+        $finalStatus = 'طلب';
+    } elseif ($balance < 0) {
+        $finalStatus = 'باقی';
+    }
+
+    // ✅ attach status only to last row
+    if ($customerFinancials->isNotEmpty()) {
+        $customerFinancials->last()->CalculatedStatus = $finalStatus;
+    }
+
+    return view('frontend.financial.show', compact(
+        'customerFinancials',
+        'customer_id',
+        'totalCredit',
+        'totalDebit'
+    ));
+}
+
 
     /**
      * Show the form for editing the specified resource.

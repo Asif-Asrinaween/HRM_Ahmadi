@@ -54,7 +54,7 @@ class ThingController extends Controller
 
     // 3️⃣ Redirect with success message
     return redirect()
-        ->back()
+        ->route('Customer.thing')
         ->with('success', 'Thing added successfully.');
 }
     

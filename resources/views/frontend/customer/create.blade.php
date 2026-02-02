@@ -89,7 +89,7 @@
         <div class="form-group">
             <label for="CustRole">Customer Role</label>
             <input type="text" name="CustRole" class="form-control" placeholder="enter customer role">
-            @error('Name')
+            @error('CustRole')
             <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
