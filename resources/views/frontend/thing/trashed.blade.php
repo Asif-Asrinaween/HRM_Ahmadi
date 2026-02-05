@@ -4,19 +4,14 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-
-                <h4 class="mb-3">Customer Things Account</h4>
-                <a href="{{ route('Customer.thing') }}" class="btn btn-secondary mt-0 float-right mb-1">
-                    Back
+                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-2">
+                    ← Back
                 </a>
 
-                <a href="{{ route('things.trashed') }}" class="btn btn-warning">
-                    Recycle Bin
-                </a>
-                {{-- if no records found --}}
+                <h4 class="mb-3">All Trashed Things</h4>
                 @if ($things->isEmpty())
                     <div class="alert alert-warning">
-                        No things found for this customer.
+                        No trashed things found.
                     </div>
                 @else
                     <table class="table table-bordered table-striped">
@@ -37,11 +32,11 @@
 
                         <tbody>
                             @foreach ($things as $index => $thing)
-                                {{-- colorize the row based on type --}}
+                                {{-- Row color based on Credit / Debit --}}
                                 <tr
-                                    @if ($thing->type == 1) style="background-color: #fff2e6;" 
-                                    @elseif ($thing->type == 0)
-                                        style="background-color: #e6ffe6;" @endif>
+                                    @if ($thing->type == 1) style="background-color: #fff2e6;" {{-- Debit --}}
+                                @else
+                                    style="background-color: #e6ffe6;" {{-- Credit --}} @endif>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $thing->customer->Name }}</td>
                                     <td>
@@ -50,40 +45,37 @@
                                     <td>{{ $thing->model }}</td>
                                     <td>{{ $thing->amount }}</td>
                                     <td>{{ number_format($thing->unit_price, 2) }}</td>
-                                    <td>
-                                        {{ number_format($thing->sum, 2) }}
-                                    </td>
+                                    <td>{{ number_format($thing->sum, 2) }}</td>
                                     <td>{{ $thing->detail ?? '-' }}</td>
                                     <td>{{ $thing->date }}</td>
 
-
                                     <td class="text-center">
-
-                                        <a href="{{ route('things.edit', ['thing' => $thing->id]) }}"
-                                            class="btn btn-primary btn-sm ml-1" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-
-                                        <form class="d-inline"
-                                            action="{{ route('things.destroy', ['thing' => $thing->id]) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                        {{-- Restore --}}
+                                        <form action="{{ route('things.restore', $thing->id) }}"
+                                            method="POST" class="d-inline">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                title="Delete">
-                                                <i class="bi bi-trash"></i>
+                                            <button class="btn btn-success btn-sm" title="Restore">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
                                             </button>
                                         </form>
 
-
+                                        {{-- Force Delete --}}
+                                        <form action="{{ route('things.delete', $thing->id) }}"
+                                            method="POST" class="d-inline"
+                                            onsubmit="return confirm('Permanently delete this record?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm"
+                                                title="Delete Permanently">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @endif
-
-
 
             </div>
         </div>

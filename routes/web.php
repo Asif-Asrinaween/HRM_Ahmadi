@@ -52,26 +52,27 @@ require __DIR__ . '/auth.php';
 Route::resource('Customer', CustomerController::class);
 Route::get('/customers/trashed', [CustomerController::class, 'trashed'])
     ->name('Customer.trashed');
-    Route::post('/customers/{id}/restore', [CustomerController::class, 'restore'])
+Route::post('/customers/{id}/restore', [CustomerController::class, 'restore'])
     ->name('Customer.restore');
 Route::delete('/customers/{id}/delete', [CustomerController::class, 'delete'])->name('Cutomer.delete');
 Route::get('CustomerFinancial', [CustomerController::class, 'customerFinancial'])->name('Customer.financial');
 Route::get('CustomerThing', [CustomerController::class, 'customerThing'])->name('Customer.thing');
 
+
+//these are Thing routes
+Route::resource('things', ThingController::class);
+Route::get('/thing/trashed', [ThingController::class, 'trashed'])
+    ->name('things.trashed');
+Route::post('/thing/{id}/restore', [ThingController::class, 'restore'])
+    ->name('things.restore');
+Route::delete('/thing/{id}/delete', [ThingController::class, 'delete'])->name('things.delete');
+
+
 //these are Financial routes
 Route::get('financial/{customer_id}', [FinancialController::class, 'singleCreate'])->name('financial.singleCreate');
 Route::resource('financials', FinancialController::class);
 
-//these are Thing routes
-Route::resource('things', ThingController::class);
 
 // route::get('test',function(){
 // return Customer::find(16)->CustType->id;
-// });
-
-// route::delete('force-delete/{id}', function ($id) {
-//     // $custType = CustType::withTrashed()->where('id', $id)->first();
-//     $custType = CustType::withTrashed()->find($id);
-
-//     return $custType;
 // });

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Customer;
 use App\Models\Thing;
 
@@ -19,45 +20,45 @@ class ThingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   public function create()
-{
-    $customers = Customer::all();
-    return view('frontend.thing.create', compact('customers'));
-}
+    public function create()
+    {
+        $customers = Customer::all();
+        return view('frontend.thing.create', compact('customers'));
+    }
 
     /**
      * Store a newly created resource in storage.
      */
-        public function store(Request $request)
-{
-    // 1️⃣ Validate input
-    $validated = $request->validate([
-        'customer_id' => 'required|exists:customers,id',
-        'type'        => 'required|boolean',
-        'model'       => 'required|string|max:255',
-        'amount'      => 'required|integer|min:1',
-        'unitPrice'   => 'required|numeric|min:0',
-        'detail'      => 'nullable|string',
-        'date'        => 'required|date',
-    ]);
+    public function store(Request $request)
+    {
+        // 1️⃣ Validate input
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'type'        => 'required|boolean',
+            'model'       => 'required|string|max:255',
+            'amount'      => 'required|integer|min:1',
+            'unit_price'   => 'required|numeric|min:0',
+            'detail'      => 'nullable|string',
+            'date'        => 'required|date',
+        ]);
 
-    // 2️⃣ Create Thing record
-    Thing::create([
-        'customer_id' => $validated['customer_id'],
-        'type'        => $validated['type'],
-        'model'       => $validated['model'],
-        'amount'      => $validated['amount'],
-        'unit_price'   => $validated['unitPrice'],
-        'detail'      => $validated['detail'] ?? null,
-        'date'        => $validated['date'],
-    ]);
+        // 2️⃣ Create Thing record
+        Thing::create([
+            'customer_id' => $validated['customer_id'],
+            'type'        => $validated['type'],
+            'model'       => $validated['model'],
+            'amount'      => $validated['amount'],
+            'unit_price'   => $validated['unit_price'],
+            'detail'      => $validated['detail'] ?? null,
+            'date'        => $validated['date'],
+        ]);
 
-    // 3️⃣ Redirect with success message
-    return redirect()
-        ->route('Customer.thing')
-        ->with('success', 'Thing added successfully.');
-}
-    
+        // 3️⃣ Redirect with success message
+        return redirect()
+            ->route('Customer.thing')
+            ->with('success', 'Thing added successfully.');
+    }
+
 
     /**
      * Display the specified resource.
@@ -67,7 +68,7 @@ class ThingController extends Controller
 
         $things = Thing::where('customer_id', $id)->get();
         foreach ($things as $thing) {
-            $sum = $thing->amount* $thing->unit_price;
+            $sum = $thing->amount * $thing->unit_price;
             $thing->sum = $sum;
         }
 
@@ -79,7 +80,9 @@ class ThingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $thing = Thing::findOrFail($id);
+        $customers = Customer::all();
+        return view('frontend.thing.edit', compact('thing', 'customers'));
     }
 
     /**
@@ -87,7 +90,34 @@ class ThingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // 1️⃣ Validate input
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'type'        => 'required|boolean',
+            'model'       => 'required|string|max:255',
+            'amount'      => 'required|integer|min:1',
+            'unit_price'   => 'required|numeric|min:0',
+            'detail'      => 'nullable|string',
+            'date'        => 'required|date',
+        ]);
+
+        // 2️⃣ Find and update Thing record
+        $thing = Thing::findOrFail($id);
+        $thing->update([
+            'customer_id' => $validated['customer_id'],
+            'type'        => $validated['type'],
+            'model'       => $validated['model'],
+            'amount'      => $validated['amount'],
+            'unit_price'   => $validated['unit_price'],
+            'detail'      => $validated['detail'] ?? null,
+            'date'        => $validated['date'],
+        ]);
+
+        // 3️⃣ Redirect with success message
+
+        return redirect()
+            ->route('things.show', ['thing' => $thing->customer_id])
+            ->with('success', 'The record updated successfully.');
     }
 
     /**
@@ -95,6 +125,41 @@ class ThingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $thing = Thing::findOrFail($id);
+        $customerId = $thing->customer_id;
+        $thing->delete();
+
+        return redirect()
+            ->route('things.show', ['thing' => $customerId])
+            ->with('success', 'The record deleted successfully.');
+    }
+
+    // display list of soft deleted or trashed or destroyed customers
+    public function trashed()
+    {
+        $things = Thing::onlyTrashed()->get();
+
+
+        return view('frontend.thing.trashed', compact('things'));
+    }
+
+    //restore a trashed record and go back thing show of that customer
+    public function restore($id)
+    {
+
+        $thing = Thing::withTrashed()->findOrFail($id);
+        $thing->restore();
+        return redirect()->route('things.show', ['thing' => $thing->customer_id])
+            ->with('success', 'The record restorded successfully!');
+    }
+    // delete trashed record permanently and go back to thing show of that customer
+    public function delete($id)
+    {
+        $thing = Thing::withTrashed()->findOrFail($id);
+        $customer_id = $thing->customer_id;
+        $thing->forceDelete();
+
+        return redirect()->route('things.show', ['thing' => $customer_id])
+            ->with('success', 'The record deleted permenantly!');
     }
 }

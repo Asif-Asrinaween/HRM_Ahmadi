@@ -24,6 +24,8 @@ return new class extends Migration
             $table->text('detail')->nullable();
             $table->date('date');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
+
         });
     }
 
