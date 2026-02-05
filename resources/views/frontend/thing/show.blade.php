@@ -75,16 +75,25 @@
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
-
-
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @if ($things->isEmpty())
+                        <div class="alert alert-warning">
+                            No things found for this customer.
+                        </div>
+                    @else
+                        <table class="table table-bordered table-striped">
+                            <!-- table head and body -->
+                        </table>
+
+                        {{-- PAGINATION --}}
+                        <div class="d-flex justify-content-center mt-3">
+                            {{ $things->links() }}
+                        </div>
+                    @endif
                 @endif
-
-
-
             </div>
         </div>
     </div>

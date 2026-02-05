@@ -65,11 +65,12 @@ class ThingController extends Controller
      */
     public function show(string $id)
     {
+        $things = Thing::where('customer_id', $id)
+            ->orderBy('id', 'desc') // newest first
+            ->paginate(3); // 10 per page (change as needed)
 
-        $things = Thing::where('customer_id', $id)->get();
         foreach ($things as $thing) {
-            $sum = $thing->amount * $thing->unit_price;
-            $thing->sum = $sum;
+            $thing->sum = $thing->amount * $thing->unit_price;
         }
 
         return view('frontend.thing.show', compact('things'));

@@ -179,11 +179,16 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <a href="{{ route('things.create') }}"
-                            class="btn btn-primary m-4 p-0">Add Thing</a>
-
-                        <a href="{{ route('financials.create') }}"
-                            class="btn btn-success m-4 p-0">Add Financial</a>
+                        <li class="nav-item">
+                            <a href="{{ route('things.create') }}" class="btn btn-primary btn-sm mx-2 my-1">
+                                <i class="bi bi-plus-circle"></i> Add Thing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('financials.create') }}" class="btn btn-success btn-sm mx-2 my-1">
+                                <i class="bi bi-cash-stack"></i> Add Financial
+                            </a>
+                        </li>
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
