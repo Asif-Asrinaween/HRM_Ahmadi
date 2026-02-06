@@ -13,7 +13,7 @@
                     <a href="{{ route('things.show', ['thing' => $thing->customer_id]) }}"
                         class="btn btn-outline-secondary mb-2 float-right">Back</a>
                 </div>
-                <form action="{{ route('things.update', $thing->id) }}" method="POST">
+                <form action="{{ route('things.update', $thing->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -59,6 +59,15 @@
                         <label for="unit_price">Unit Price</label>
                         <input type="number" step="0.01" name="unit_price" class="form-control"
                             value="{{ old('unit_price', $thing->unit_price) }}" required>
+                    </div>
+
+                    {{-- Model Image --}}
+                    <div class="form-group">
+                        <label for="model_image">Model Image</label>
+                        <input type="file" name="model_image" class="form-control" accept="image/*">
+                        @error('model_image')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     {{-- Detail --}}

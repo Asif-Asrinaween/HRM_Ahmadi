@@ -46,9 +46,45 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        Customer::create(['Name' => $request->Name, 'Phone' => $request->Phone, 'Add' => $request->Add,  'DateOfJoin' => $request->DateOfJoin, 'DateOfSeparate' => $request->DateOfSeparate, 'NID' => $request->NID, 'NidPhoto' => $request->NidPhoto, 'Level' => $request->Level, 'CustRole' => $request->CustRole,]);
-        return redirect()->route('Customer.index');
+        $photoName = null;
+
+        // if photo uploaded
+        if ($request->hasFile('NidPhoto')) {
+
+            $file = $request->file('NidPhoto');
+
+            // create unique name
+            $photoName = time() . '_' . $file->getClientOriginalName();
+
+            // move to public/images/customerImages folder
+            // Validate file type and size (e.g., max 2MB, only jpg/png/jpeg)
+            $request->validate([
+                'NidPhoto' => 'image|mimes:jpeg,png,jpg,pdf|max:2048',
+            ]);
+
+            // Sanitize file name
+            $photoName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '', $file->getClientOriginalName());
+
+            // Move to public/images/customerImages folder
+            $file->move(public_path('images/customerImages'), $photoName);
+        }
+
+        Customer::create([
+            'Name' => $request->Name,
+            'Phone' => $request->Phone,
+            'Add' => $request->Add,
+            'DateOfJoin' => $request->DateOfJoin,
+            'DateOfSeparate' => $request->DateOfSeparate,
+            'NID' => $request->NID,
+            'NidPhoto' => $photoName, // save file name
+            'Level' => $request->Level,
+            'CustRole' => $request->CustRole,
+        ]);
+
+        return redirect()->route('Customer.index')
+            ->with('success', 'Customer created successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -71,9 +107,47 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, string $id)
     {
-        Customer::where('id', $id)->update(['Name' => $request->Name, 'Phone' => $request->Phone, 'Add' => $request->Add,  'DateOfJoin' => $request->DateOfJoin, 'DateOfSeparate' => $request->DateOfSeparate, 'NID' => $request->NID, 'NidPhoto' => $request->NidPhoto, 'Level' => $request->Level, 'CustRole' => $request->CustRole,]);
+        // Validate input including optional NidPhoto
+        $validated = $request->validate([
+            'Name' => 'required',
+            'Phone' => 'required',
+            'Add' => 'required|string|min:4|max:30',
+            'DateOfJoin' => 'required|date',
+            'DateOfSeparate' => 'nullable|date',
+            'NID' => 'required|numeric|min:5',
+            'NidPhoto' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
+            'Level' => 'required|boolean',
+            'CustRole' => 'required|string',
+        ]);
+        //find customer to update
+        $thing = Customer::findOrFail($id);
+        // Handle file upload if present
+        $photoName = null;
+        if ($request->hasFile('NidPhoto')) {
+            $file = $request->file('NidPhoto');
+            // Sanitize file name
+            $photoName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '', $file->getClientOriginalName());
+            //update and Move to public/images/customerImages folder
+            $file->move(public_path('images/customerImages'), $photoName);
+            $thing->update(['NidPhoto' => $photoName]);
+        }
+
+        // 2️⃣ Find and update Thing record
+        $thing->update([
+            'Name' => $validated['Name'],
+            'Phone'        => $validated['Phone'],
+            'Add'       => $validated['Add'],
+            'DateOfJoin'      => $validated['DateOfJoin'],
+            'DateOfSeparate'   => $validated['DateOfSeparate'],
+            'NID'      => $validated['NID'],
+            'Level'        => $validated['Level'],
+            'CustRole'        => $validated['CustRole'],
+        ]);
+
+        // 3️⃣ Redirect with success message
+
         return redirect()->route('Customer.show', ['Customer' => $id]);
     }
 
@@ -117,7 +191,7 @@ class CustomerController extends Controller
         }
 
         $customer->forceDelete();
-        
+
         return redirect()->back()
             ->with('success', 'Customer permanently deleted.');
     }

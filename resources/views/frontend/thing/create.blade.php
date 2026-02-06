@@ -12,7 +12,7 @@
                 </div>
                 <h4 class="mb-3">Add New Thing</h4>
 
-                <form action="{{ route('things.store') }}" method="POST">
+                <form action="{{ route('things.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Customer --}}
@@ -60,6 +60,15 @@
                             required>
                     </div>
 
+                    {{-- Model Image --}}
+                    <div class="form-group">
+                        <label for="model_image">Model Image</label>
+                        <input type="file" name="model_image" class="form-control" accept="image/*">
+                        @error('model_image')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     {{-- Detail --}}
                     <div class="form-group mb-3">
                         <label for="detail">Detail</label>
@@ -86,3 +95,10 @@
     </div>
     </div>
 @endsection
+{{-- @section('script')
+<script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+<script>
+    $('#lfm').filemanager('image');
+</script>
+
+@endsection --}}

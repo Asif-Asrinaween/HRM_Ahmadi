@@ -16,6 +16,7 @@ class Thing extends Model
         'model',
         'amount',
         'unit_price',
+        'model_image',
         'detail',
         'date'
     ];

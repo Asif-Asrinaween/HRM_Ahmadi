@@ -31,34 +31,48 @@ class ThingController extends Controller
      */
     public function store(Request $request)
     {
-        // 1️⃣ Validate input
+
+
+        // Validate input including optional model_image
         $validated = $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'type'        => 'required|boolean',
             'model'       => 'required|string|max:255',
             'amount'      => 'required|integer|min:1',
-            'unit_price'   => 'required|numeric|min:0',
+            'unit_price'  => 'required|numeric|min:0',
             'detail'      => 'nullable|string',
             'date'        => 'required|date',
+            'model_image' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
 
-        // 2️⃣ Create Thing record
+
+        // Handle file upload if present
+        $photoName = null;
+        if ($request->hasFile('model_image')) {
+            $file = $request->file('model_image');
+            // Sanitize file name
+            $photoName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '', $file->getClientOriginalName());
+            // Move to public/images/modelImages folder
+            $file->move(public_path('images/modelImages'), $photoName);
+        }
+
+        // Create Thing record
         Thing::create([
             'customer_id' => $validated['customer_id'],
             'type'        => $validated['type'],
             'model'       => $validated['model'],
             'amount'      => $validated['amount'],
-            'unit_price'   => $validated['unit_price'],
+            'unit_price'  => $validated['unit_price'],
+            'model_image' => $photoName,
             'detail'      => $validated['detail'] ?? null,
             'date'        => $validated['date'],
         ]);
 
-        // 3️⃣ Redirect with success message
+        // Redirect with success message
         return redirect()
             ->route('Customer.thing')
             ->with('success', 'Thing added successfully.');
     }
-
 
     /**
      * Display the specified resource.
@@ -91,26 +105,38 @@ class ThingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // 1️⃣ Validate input
+        // Validate input including optional model_image
         $validated = $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'type'        => 'required|boolean',
             'model'       => 'required|string|max:255',
             'amount'      => 'required|integer|min:1',
-            'unit_price'   => 'required|numeric|min:0',
+            'unit_price'  => 'required|numeric|min:0',
             'detail'      => 'nullable|string',
             'date'        => 'required|date',
+            'model_image' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
+        //find thing to update
+        $thing = Thing::findOrFail($id);
+        // Handle file upload if present
+        $photoName = null;
+        if ($request->hasFile('model_image')) {
+            $file = $request->file('model_image');
+            // Sanitize file name
+            $photoName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '', $file->getClientOriginalName());
+            //update and Move to public/images/modelImages folder
+            $file->move(public_path('images/modelImages'), $photoName);
+            $thing->update(['model_image' => $photoName]);
+        }
 
         // 2️⃣ Find and update Thing record
-        $thing = Thing::findOrFail($id);
         $thing->update([
             'customer_id' => $validated['customer_id'],
             'type'        => $validated['type'],
             'model'       => $validated['model'],
             'amount'      => $validated['amount'],
             'unit_price'   => $validated['unit_price'],
-            'detail'      => $validated['detail'] ?? null,
+            'detail'      => $validated['detail'],
             'date'        => $validated['date'],
         ]);
 

@@ -44,13 +44,12 @@
                                     <td>{{ $customer->DateOfSeparate }}</td>
                                     <td>{{ $customer->NID }}</td>
                                     <td>
+                                        {{-- {{ $customer->NidPhoto }} --}}
                                         @if ($customer->NidPhoto)
-                                            <img src="{{ asset('uploads/' . $customer->NidPhoto) }}"
-                                                alt="NID Photo" width="60" height="60"
-                                                class="rounded">
-                                        @else
-                                            -
+                                            <img src="{{ asset('images/customerImages/' . $customer->NidPhoto) }}"
+                                                width="50", height="30" alt="NIdPhoto">
                                         @endif
+
                                     </td>
                                     <td>{{ $customer->level_text }}</td>
                                     <td>{{ $customer->CustRole }}</td>

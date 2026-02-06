@@ -24,6 +24,7 @@
                                 <th>Amount</th>
                                 <th>Unit Price</th>
                                 <th>Sum</th>
+                                <th>Model Image</th>
                                 <th>Detail</th>
                                 <th>Date</th>
                                 <th>Action</th>
@@ -46,6 +47,19 @@
                                     <td>{{ $thing->amount }}</td>
                                     <td>{{ number_format($thing->unit_price, 2) }}</td>
                                     <td>{{ number_format($thing->sum, 2) }}</td>
+                                    <td>
+                                        {{-- model image and zoomable --}}
+                                        @if ($thing->model_image)
+                                            <a href="{{ asset('images/modelImages/' . $thing->model_image) }}"
+                                                target="_blank" style="display:inline-block;">
+                                                <img src="{{ asset('images/modelImages/' . $thing->model_image) }}"
+                                                    width="50" height="30" alt="modelImage"
+                                                    style="transition: transform 0.2s; cursor: zoom-in;"
+                                                    onmouseover="this.style.transform='scale(2)'; this.style.zIndex=1000;"
+                                                    onmouseout="this.style.transform='scale(1)'; this.style.zIndex=1;">
+                                            </a>
+                                        @endif
+                                    </td>
                                     <td>{{ $thing->detail ?? '-' }}</td>
                                     <td>{{ $thing->date }}</td>
 
