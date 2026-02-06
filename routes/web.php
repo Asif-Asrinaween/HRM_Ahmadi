@@ -1,12 +1,8 @@
 <?php
 
-use App\Models\CustType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CustTypeController;
-use App\Http\Controllers\materialController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FinancialController;
 use App\Http\Controllers\ThingController;
 
@@ -24,8 +20,12 @@ use App\Models\Customer;
 */
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('auth.login');
 });
+
+Route::get('/dashboar/register', function () {
+    return view('auth.register');
+})->name('profile.register');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

@@ -82,6 +82,35 @@
             </li>
 
 
+            <!-- Nav Item - Thing -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" role="button"
+                    data-toggle="dropdown">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span class="nav-link">Profile</span>
+                    <div class="dropdown-menu dropdown-menu-left">
+
+
+
+                        <a class="dropdown-item" href="#">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            User Profile
+                        </a>
+
+
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Edit Profile
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('profile.register') }}">
+                            <i class=" fa-sm fa-fw mr-2 "></i>
+                            Register New User
+                        </a>
+                    </div>
+                </a>
+            </li>
+
             <!-- Nav Item - Customer -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('Customer.index') }}">
