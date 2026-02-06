@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('Name');
             $table->string('Phone');
             $table->text('Add');
-            $table->date('DateOfJoin');
-            $table->date('DateOfSeparate')->nullable();
+            $table->string('DateOfJoin');
+            $table->string('DateOfSeparate')->nullable();
             $table->unsignedBigInteger('NID');
             $table->text('NidPhoto');
             $table->boolean('Level');

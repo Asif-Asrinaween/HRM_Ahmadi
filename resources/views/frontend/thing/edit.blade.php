@@ -13,7 +13,8 @@
                     <a href="{{ route('things.show', ['thing' => $thing->customer_id]) }}"
                         class="btn btn-outline-secondary mb-2 float-right">Back</a>
                 </div>
-                <form action="{{ route('things.update', $thing->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('things.update', $thing->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -79,7 +80,7 @@
                     {{-- Date --}}
                     <div class="form-group mb-3">
                         <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control"
+                        <input type="text" name="date" class="form-control shamsiCalendar"
                             value="{{ old('date', $thing->date) }}" required>
                     </div>
 
@@ -97,4 +98,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $(".shamsiCalendar").persianDatepicker({
+                formatDate: "YYYY/MM/DD"
+            });
+        });
+    </script>
 @endsection

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('unit_price', 10, 2);
             $table->string('model_image')->nullable();
             $table->text('detail')->nullable();
-            $table->date('date');
+            $table->string('date');
             $table->timestamps();
             $table->softDeletes('deleted_at');
 

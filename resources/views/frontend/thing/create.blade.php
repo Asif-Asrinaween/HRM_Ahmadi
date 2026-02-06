@@ -78,7 +78,8 @@
                     {{-- Date --}}
                     <div class="form-group mb-3">
                         <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control" required>
+                        <input type="text" name="date" class="form-control shamsiCalendar"
+                            required>
                     </div>
 
                     {{-- Buttons --}}
@@ -95,6 +96,19 @@
     </div>
     </div>
 @endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $(".shamsiCalendar").persianDatepicker({
+                formatDate: "YYYY/MM/DD"
+            });
+        });
+    </script>
+@endsection
+
+
+
 {{-- @section('script')
 <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 <script>

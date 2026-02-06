@@ -41,7 +41,7 @@ class ThingController extends Controller
             'amount'      => 'required|integer|min:1',
             'unit_price'  => 'required|numeric|min:0',
             'detail'      => 'nullable|string',
-            'date'        => 'required|date',
+            'date'        => 'required|string|max:12',
             'model_image' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
 
@@ -113,7 +113,7 @@ class ThingController extends Controller
             'amount'      => 'required|integer|min:1',
             'unit_price'  => 'required|numeric|min:0',
             'detail'      => 'nullable|string',
-            'date'        => 'required|date',
+            'date'        => 'required|string|max:12',
             'model_image' => 'nullable|image|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
         //find thing to update

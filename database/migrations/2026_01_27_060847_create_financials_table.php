@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('currency');
             $table->decimal('credit', 10, 2)->default(0);
             $table->decimal('debit', 10, 2)->default(0);
-            $table->date('date');
+            $table->string('date');
             $table->timestamps();
         });
     }

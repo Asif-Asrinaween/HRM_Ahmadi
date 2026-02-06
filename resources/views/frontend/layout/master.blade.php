@@ -35,6 +35,8 @@
 
     <link href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.min.css') }}">
+{{-- Shamsi calendar --}}
+    <link rel="stylesheet" href="{{ asset('shamsiCalendar/css/persianDatepicker-default.css') }}" />
 
 
 
@@ -391,6 +393,10 @@
         {{-- offline deltete sweetalert --}}
         <script src="{{ mix('js/app.js') }}"></script>
         @yield('script')
+
+{{-- shamsi calendar  --}}
+          <script src="{{ asset('shamsiCalendar/js/jquery-1.10.1.min.js') }}" ></script>
+    <script src="{{ asset('shamsiCalendar/js/persianDatepicker.min.js') }}"></script>
 
 
 

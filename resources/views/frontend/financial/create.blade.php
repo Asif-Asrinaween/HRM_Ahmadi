@@ -5,9 +5,9 @@
             <div class="col-md-8 mx-auto">
                 {{-- link back to customer list --}}
                 <div class="d-flex justify-content-between float-right mb-3">
-                        <a href="{{ route('Customer.index') }}" class="btn btn-secondary">
-                            Back
-                        </a>
+                    <a href="{{ route('Customer.index') }}" class="btn btn-secondary">
+                        Back
+                    </a>
                 </div>
 
                 <h4 class="mb-3">Add Financial Record</h4>
@@ -57,20 +57,32 @@
                     {{-- Date --}}
                     <div class="form-group mb-3">
                         <label for="date">Date</label>
-                        <input type="date" name="date" class="form-control" required>
+                        <input type="text" name="date" class="form-control shamsiCalendar"
+                            required>
                     </div>
 
                     {{-- Buttons --}}
-                    
 
-                        <button type="submit" class="btn btn-primary">
-                            Save
-                        </button>
-                    </div>
 
-                </form>
-
+                    <button type="submit" class="btn btn-primary">
+                        Save
+                    </button>
             </div>
+
+            </form>
+
         </div>
     </div>
+    </div>
+@endsection
+
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $(".shamsiCalendar").persianDatepicker({
+                formatDate: "YYYY/MM/DD"
+            });
+        });
+    </script>
 @endsection

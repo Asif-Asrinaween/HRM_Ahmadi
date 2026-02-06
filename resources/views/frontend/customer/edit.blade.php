@@ -39,9 +39,22 @@
                             @enderror
                         </div>
 
+
+
                         <div class="form-group">
                             <label for="DateOfJoin">DateOfJoin</label>
-                            <input type="date" name="DateOfJoin" class="form-control"
+                            <input type="text" name="DateOfJoin" class="form-control shamsiCalendar"
+                                required>
+                            @error('DateOfJoin')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="DateOfJoin">DateOfJoin</label>
+                            <input type="text" name="DateOfJoin" class="form-control shamsiCalendar"
                                 value="{{ $customer->DateOfJoin }}">
                             @error('DateOfJoin')
                                 <p class="text-danger">{{ $message }}</p>
@@ -50,7 +63,8 @@
 
                         <div class="form-group">
                             <label for="DateOfSeparate">DateOfSeparate</label>
-                            <input type="date" name="DateOfSeparate" class="form-control"
+                            <input type="text" name="DateOfSeparate"
+                                class="form-control shamsiCalendar"
                                 value="{{ $customer->DateOfSeparate }}">
                             @error('DateOfSeparate')
                                 <p class="text-danger">{{ $message }}</p>
@@ -116,6 +130,18 @@
     </div>
     <!-- End of Main Content -->
 @endsection
+
+{{-- shamsi calendar script  --}}
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $(".shamsiCalendar").persianDatepicker({
+                formatDate: "YYYY/MM/DD"
+            });
+        });
+    </script>
+@endsection
+
 
 
 {{-- @section('script')
